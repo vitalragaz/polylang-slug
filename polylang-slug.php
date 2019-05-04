@@ -16,7 +16,7 @@
  * Plugin URI:        https://github.com/grappler/polylang-slug
  * GitHub Plugin URI: https://github.com/grappler/polylang-slug
  * Description:       Allows same slug for multiple languages in Polylang
- * Version:           0.2.2
+ * Version:           0.3.0
  * Author:            Ulrich Pogson
  * Author URI:        http://ulrich.pogson.ch/
  * License:           GPL-2.0+
@@ -27,9 +27,15 @@
 
 // Built using code from: https://wordpress.org/support/topic/plugin-polylang-identical-page-names-in-different-languages?replies=8#post-2669927
 
+/**
+ *  @since 0.3.0
+*/ 
+define('POLYLANG_MIN_VERSION', '2.0.0');
+define('WP_MIN_VERSION', '5.0.0');
+
 // Check if PLL exists & the minimum version is correct.
-if ( ! defined( 'POLYLANG_VERSION' ) || version_compare( POLYLANG_VERSION, '1.7', '=<' ) || version_compare( $GLOBALS[ 'wp_version' ], '4.0', '=<' ) ) {
-	add_action( 'admin_notices', 'polylang_slug_admin_notices' );
+if ( ! defined( 'POLYLANG_VERSION' ) || version_compare( POLYLANG_VERSION, POLYLANG_MIN_VERSION, '=<' ) || version_compare( $GLOBALS[ 'wp_version' ], WP_MIN_VERSION, '=<' ) ) {
+	//add_action( 'admin_notices', 'polylang_slug_admin_notices' );
 	return;
 }
 
@@ -39,7 +45,7 @@ if ( ! defined( 'POLYLANG_VERSION' ) || version_compare( POLYLANG_VERSION, '1.7'
  * @since 0.2.0
  */
 function polylang_slug_admin_notices() {
-	echo '<div class="error"><p>' . __( 'Polylang Slug requires at the minimum Polylang v1.7 and WordPress 4.0', 'polylang-slug') . '</p></div>';
+	echo '<div class="error"><p>'. __( 'Polylang Slug requires at the minimum Polylang v'.POLYLANG_MIN_VERSION.' and WordPress '.WP_MIN_VERSION.'', 'polylang-slug') ."Versions:". $GLOBALS[ 'wp_version' ]  . " Polylang:". POLYLANG_VERSION. '</p></div>';
 }
 
 /**
